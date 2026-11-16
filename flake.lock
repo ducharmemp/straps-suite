@@ -1,0 +1,269 @@
+{
+  "nodes": {
+    "buff": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794019628,
+        "narHash": "sha256-1EGBlfJnSedlu/7SSLmPC1BAT//oKpAGq3ps2sXhe6g=",
+        "owner": "ducharmemp",
+        "repo": "buff.nvim",
+        "rev": "45ad0cb763138be7eeb03436bd34f0add7036257",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ducharmemp",
+        "repo": "buff.nvim",
+        "rev": "45ad0cb763138be7eeb03436bd34f0add7036257",
+        "type": "github"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixvim",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790898470,
+        "narHash": "sha256-zTwuwezD0w3hpga6a6P8emidzAZFyWqlNeRBlpWOOl8=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "024633cd702b10285db5cb19b40ad48d2399ba60",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "lazy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765971162,
+        "narHash": "sha256-5A4kducPwKb5fKX4oSUFvo898P0dqfsqqLxFaXBsbQY=",
+        "owner": "folke",
+        "repo": "lazy.nvim",
+        "rev": "306a05526ada86a7b30af95c5cc81ffba93fef97",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "lazy.nvim",
+        "rev": "306a05526ada86a7b30af95c5cc81ffba93fef97",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1792773339,
+        "narHash": "sha256-rZLrzrC6i+jnTAlvPZHogKDulY7WWDEv9hJeHieO7Zw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3ec636362e1816bc2f0888fa0fa2c69f1bc9e504",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3ec636362e1816bc2f0888fa0fa2c69f1bc9e504",
+        "type": "github"
+      }
+    },
+    "nixvim": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1792203519,
+        "narHash": "sha256-yJ072hxngo/srNdLTp4BlFeo0hedwnKicI3TGlSXLFE=",
+        "owner": "nix-community",
+        "repo": "nixvim",
+        "rev": "453dc9c5037e6d1bec81d2a51ddacd58a2f44e9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixvim",
+        "rev": "453dc9c5037e6d1bec81d2a51ddacd58a2f44e9c",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "buff": "buff",
+        "lazy": "lazy",
+        "nixpkgs": "nixpkgs",
+        "nixvim": "nixvim",
+        "straps": "straps",
+        "straps-buff": "straps-buff",
+        "straps-chartifier": "straps-chartifier",
+        "straps-classifier": "straps-classifier",
+        "straps-divergent": "straps-divergent",
+        "straps-exoskeleton": "straps-exoskeleton",
+        "straps-kagi": "straps-kagi",
+        "straps-renamer": "straps-renamer"
+      }
+    },
+    "straps": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794772856,
+        "narHash": "sha256-oA9W7KdI8G/uSTO7fy4V/7zZ3dYBhlqKWmojjF4gx6o=",
+        "owner": "ducharmemp",
+        "repo": "straps",
+        "rev": "78a487834c4ef24beb62e673cbe090200654308f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ducharmemp",
+        "repo": "straps",
+        "rev": "78a487834c4ef24beb62e673cbe090200654308f",
+        "type": "github"
+      }
+    },
+    "straps-buff": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794168938,
+        "narHash": "sha256-eIjP41W+tBReKjaJxppiQrQzYTPEfln/yPYodmRrn4k=",
+        "owner": "ducharmemp",
+        "repo": "straps-buff",
+        "rev": "7351631448cbd547ae6a7e2cbb87240e901c8207",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ducharmemp",
+        "repo": "straps-buff",
+        "rev": "7351631448cbd547ae6a7e2cbb87240e901c8207",
+        "type": "github"
+      }
+    },
+    "straps-chartifier": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794166101,
+        "narHash": "sha256-UjYe7OodkEXivAkE6jezbi/DxVn0wuic5Y3stNlKdgg=",
+        "owner": "ducharmemp",
+        "repo": "straps-chartifier",
+        "rev": "dc9d8f34ac504f9df7e712df298002970741db90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ducharmemp",
+        "repo": "straps-chartifier",
+        "rev": "dc9d8f34ac504f9df7e712df298002970741db90",
+        "type": "github"
+      }
+    },
+    "straps-classifier": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794772892,
+        "narHash": "sha256-9C3POyFj1Mbm1PNMbozWfR/ONRmUs7a5+56ANzcB8Gc=",
+        "ref": "refs/heads/main",
+        "rev": "b1af9df8bd058f8249230c725c97dbe0297a8c3d",
+        "revCount": 10,
+        "type": "git",
+        "url": "ssh://git@github.com/ducharmemp/straps-classifier"
+      },
+      "original": {
+        "rev": "b1af9df8bd058f8249230c725c97dbe0297a8c3d",
+        "type": "git",
+        "url": "ssh://git@github.com/ducharmemp/straps-classifier"
+      }
+    },
+    "straps-divergent": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794773012,
+        "narHash": "sha256-CNN+eNJDH+wBajoFo/mKe4HpdoZM/GAuUB24Hln7bWA=",
+        "owner": "ducharmemp",
+        "repo": "straps-divergent",
+        "rev": "5cce48ab7cb726f097d81112ecfbcc0cc5133162",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ducharmemp",
+        "repo": "straps-divergent",
+        "rev": "5cce48ab7cb726f097d81112ecfbcc0cc5133162",
+        "type": "github"
+      }
+    },
+    "straps-exoskeleton": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794166101,
+        "narHash": "sha256-bgWzzlrpsNNdXoWQCiHJi46f6lJ2w9KUZOClWdRQaVM=",
+        "owner": "ducharmemp",
+        "repo": "straps-exoskeleton",
+        "rev": "734b67d3ac70757b34728558c0f5be065bce7db3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ducharmemp",
+        "repo": "straps-exoskeleton",
+        "rev": "734b67d3ac70757b34728558c0f5be065bce7db3",
+        "type": "github"
+      }
+    },
+    "straps-kagi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794778791,
+        "narHash": "sha256-NziLT52OPTc3uDWsOTkSLkYWDAm0NEUolRXs7+XqbiQ=",
+        "owner": "ducharmemp",
+        "repo": "straps-kagi",
+        "rev": "53c0ef4afcb93eb2dd1b64d92c29024f6bc333fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ducharmemp",
+        "repo": "straps-kagi",
+        "rev": "53c0ef4afcb93eb2dd1b64d92c29024f6bc333fa",
+        "type": "github"
+      }
+    },
+    "straps-renamer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794166101,
+        "narHash": "sha256-jA1BMFjk4669Nbzk3CIy+yh9BmDiksdbm2nAcHVcQag=",
+        "owner": "ducharmemp",
+        "repo": "straps-renamer",
+        "rev": "b7b5ffcef1a4ace9ea7464ba81e33cd563bdcd21",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ducharmemp",
+        "repo": "straps-renamer",
+        "rev": "b7b5ffcef1a4ace9ea7464ba81e33cd563bdcd21",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791244623,
+        "narHash": "sha256-uuanbkFk8a313Zfrxdcz8Us/yQtaxNnKJtX8v0ZPpd8=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "d36eeed142f88b5a636f2e3856a53c61654cf29b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "ref": "future-26.11",
+        "repo": "default",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

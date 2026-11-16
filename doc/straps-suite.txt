@@ -1,0 +1,273 @@
+*straps-suite.txt*               Straps suite configuration
+
+For Neovim 0.11 or newer.
+
+==============================================================================
+CONTENTS                                                *straps-suite*
+
+    Installation            |straps-suite-install|
+    Lifecycle               |straps-suite-lifecycle|
+    Configuration           |straps-suite-config|
+    Context budgets         |straps-suite-context|
+    Keymaps                 |straps-suite-keymaps|
+    Attention               |straps-suite-attention|
+    Health and tests        |straps-suite-health|
+
+straps-suite configures Straps and seven extensions through one options table.
+It owns their setup order. Complete setup before opening any Straps session.
+
+The default strict classifier discloses every tool call to TypeSafe before
+human approval. Even a call you reject has been sent. Missing credentials,
+classifier failures, and dangerous verdicts deny calls. The classifier can
+remove permission; it cannot grant permission.
+
+==============================================================================
+INSTALLATION                                            *straps-suite-install*
+
+Requirements: Neovim >= 0.11, curl, provider credentials, and a TypeSafe key.
+Set TYPESAFE_API_KEY or use the classifier's supported key store. Kagi requires
+its own credentials; use :StrapsKagiLogin without exposing a key in command
+arguments. Search queries and target URLs reach Kagi and may incur charges.
+
+The browser extension requires Buff API v1, pinned at revision
+45ad0cb763138be7eeb03436bd34f0add7036257. Install sandboxed Chromium or Chrome
+separately. Set BUFF_CHROME to its executable path when needed. The suite does
+not install a browser executable.
+
+Nixvim imports only the suite module: >nix
+    imports = [ inputs.straps-suite.nixvimModules.default ];
+    plugins.straps-suite = {
+      enable = true;
+      settings.keymaps = "<leader>t";
+    };
+<
+The flake input can use github:ducharmemp/straps-suite. Module options are:
+    plugins.straps-suite.enable     Enable suite setup.
+    plugins.straps-suite.settings   Shared suite options.
+    plugins.straps-suite.package    Override the suite package.
+
+The module packages core, seven extensions, and compatible Buff. Preparation
+runs through extraConfigLuaPre, followed by setup in extraConfigLua. Both run
+with dependency modules available before dependency plugin scripts. Remove
+separate core, extension, and Buff setup modules to avoid duplicate setup.
+Install Chromium through your system configuration. The classifier flake input
+uses SSH; fetching it requires GitHub SSH access.
+
+For lazy.nvim, put this spec in one Lua file: >lua
+    local opts = {
+      keymaps = '<leader>t',
+      extensions = { renamer = { auto = { enabled = false } } },
+    }
+    return {
+      'ducharmemp/straps-suite',
+      lazy = false,
+      dependencies = {
+        'ducharmemp/straps',
+        'ducharmemp/straps-divergent',
+        'ducharmemp/straps-exoskeleton',
+        'ducharmemp/straps-chartifier',
+        { 'ducharmemp/buff.nvim', commit = '45ad0cb763138be7eeb03436bd34f0add7036257' },
+        'ducharmemp/straps-buff',
+        'ducharmemp/straps-kagi',
+        'ducharmemp/straps-renamer',
+        'ducharmemp/straps-classifier',
+      },
+      init = function(plugin)
+        vim.opt.runtimepath:prepend(plugin.dir)
+        require('straps_suite').prepare(opts)
+      end,
+      config = function() require('straps_suite').setup(opts) end,
+    }
+<
+Do not add dependency opts, config callbacks, or separate setup calls. init
+must prepare the suite before dependency plugin scripts run.
+
+==============================================================================
+LIFECYCLE                                               *straps-suite-lifecycle*
+
+require('straps_suite').prepare({opts})                   *straps-suite.prepare()*
+    Resolve options before dependency plugin scripts. Suppress Chartifier and
+    Renamer automatic plugin registration. Already-loaded plugin flags are an
+    error; restart Neovim if either plugin ran before preparation.
+
+require('straps_suite').setup({opts})                     *straps-suite.setup()*
+    After dependencies load, set up core, Buff, enabled extensions, mappings,
+    and attention. Use the same resolved options as prepare(). An enabled
+    missing dependency raises an error. Complete setup before guards freeze
+    at the first Straps session.
+
+Identical repeated calls are no-ops. Changed options after preparation or setup
+require a restart. Partial setup failure requires a restart; registration is
+not rolled back. Other plugin managers must preserve the same two phases.
+
+The suite owns Chartifier and Renamer registration after core setup. Do not
+configure individual plugin setup alongside the suite.
+
+==============================================================================
+CONFIGURATION                                           *straps-suite-config*
+
+Only the following top-level options are accepted:
+
+core        Table passed to require('straps').setup(). Suite defaults below.
+extensions  Table keyed by the seven short names below. false skips suite
+            setup; a table enables setup and supplies its settings.
+browser     Table passed to require('buff').setup(); default {}. Nonempty
+            browser settings require extensions.buff to remain enabled.
+keymaps     false or a nonempty prefix string; default '<leader>t'.
+attention   Boolean; default true.
+
+Unknown suite keys and extension names are errors. Tables merge into suite
+defaults. Each upstream extension processes its own settings and unsupported
+options. Disabled dependencies remain installed. Chartifier and Renamer automatic
+plugin files remain suppressed; other upstream commands remain available.
+Collaboration commands can register Exoskeleton tools when invoked. These
+switches do not revoke permissions or remove installed packages.
+
+All seven extensions default to enabled:
+    divergent   straps-divergent: conversation forks.
+    exoskeleton straps-exoskeleton: shared org notebooks (Lua straps_collab).
+    chartifier  straps-chartifier: numeric charts.
+    buff        straps-buff: browser tools, with Buff configured via browser.
+    kagi        straps-kagi: hosted search and page extraction.
+    renamer     straps-renamer: model-generated session titles.
+    classifier  straps-classifier: strict TypeSafe classification.
+
+Renamer defaults to auto.enabled = false. :StrapsRenameAuto remains available
+and sends a transcript excerpt to the session's provider when invoked.
+
+Core defaults: >lua
+    core = {
+      max_spawn_depth = 2,
+      compact_keep_turns = 2,
+      context_management = {
+        enabled = true,
+        mode = 'mechanical',
+        trigger = 0.85,
+        target = 0.7,
+        keep_turns = 2,
+        reserve_tokens = 4096,
+        minimum_savings = 128,
+        idle_compaction = false,
+      },
+    }
+<
+Classifier settings added to upstream strict defaults: >lua
+    extensions = {
+      classifier = {
+        max_state_bytes = 32000,
+        ask_cutoffs = {
+          viable = 0.6,
+          disfavored = 0.6,
+          steer_confidence = 0.6,
+          asymmetric_detail = 0.7,
+          decoy_present = 0.7,
+          fairness = 2,
+          marked_recommended = 0.7,
+          deciding_factor = 0.5,
+        },
+      },
+    }
+<
+The suite does not enable experimental contextual authorization or add a
+publishing bypass. Review upstream classifier policy before changing it.
+
+Disable an extension with, for example: >lua
+    local opts = { extensions = { buff = false } }
+<
+==============================================================================
+CONTEXT BUDGETS                                         *straps-suite-context*
+
+Mechanical mode archives eligible old tool results and leaves retrieval
+receipts. It preserves user and assistant prose. Protected content can prevent
+reduction to the configured target. No fitting-request guarantee follows from
+enabling context management.
+
+A known model input allowance is required. Unknown limits block dispatch.
+Combined context_limit metadata requires an effective output reservation.
+For custom providers or missing metadata, set core.context_management.input_limit
+to a reviewed allowance within the actual provider limit. An override does not
+increase that capacity. Estimated budgets do not guarantee provider acceptance.
+
+Summary mode requires an explicit core.context_management.mode = 'summary'.
+It makes additional provider requests, incurs tokens, and refuses the Codex
+route. Structural checks do not establish fidelity. Read
+|straps-context-management| before enabling summary mode.
+
+Legacy auto_compact_tokens and auto_compact_bytes thresholds remain unset.
+Disable the new manager with: >lua
+    local opts = {
+      core = { context_management = { enabled = false } },
+    }
+<
+An optional explicit legacy threshold uses a reviewed model-specific budget: >lua
+    local opts = {
+      core = {
+        context_management = { enabled = false },
+        auto_compact_tokens = reviewed_token_threshold,
+      },
+    }
+<
+Supply reviewed_token_threshold yourself; no universal threshold is recommended.
+Use the chosen opts in both prepare() and setup().
+
+==============================================================================
+KEYMAPS                                                 *straps-suite-keymaps*
+
+All mappings use normal mode. Existing mappings are preserved. Set keymaps to
+false to disable suite mappings. which-key is optional; when present, it receives
+the prefix group description. Suffixes append to '<leader>t' by default:
+
+    Suffix  Scope           Action
+    n       Global          New session in split
+    v       Global          New session in vertical split
+    t       Global          New session in tab
+    r       Global          Resume latest in split
+    V       Global          Resume latest in vertical split
+    T       Global          Resume latest in tab
+    R       Global          Resume picker
+    a       Global          Agents buffer
+    s       Global          Enter transcript search
+    m       Global          Pick model
+    e       Global          Pick effort
+    p       Global          Pick provider
+    x       Straps buffer   Stop run
+    c       Straps buffer   Continue run
+    g       Straps buffer   Enter steering text
+    k       Straps buffer   Compact session
+    N       Straps buffer   Rename session
+    u       Straps buffer   Enter permission grants
+
+==============================================================================
+ATTENTION                                               *straps-suite-attention*
+
+require('straps_suite.attention').status()
+    Return a string such as '2 working 1 waiting'. Zero components are omitted;
+    idle returns an empty string.
+
+require('straps_suite.attention').counts()
+    Return { running = N, waiting = N } for top-level sessions. Waiting marks
+    completed runs not viewed while Neovim has focus. Cancelled runs do not add
+    waiting attention. Viewing a session with focus clears its waiting state.
+
+attention = false disables suite tracking. Core terminal_status behavior is
+reused. core.terminal_status = false disables core terminal attention reports.
+No global status wrappers are defined. Zellij task-text support and old
+StrapsZellij global compatibility remain deferred.
+
+==============================================================================
+HEALTH AND TESTS                                        *straps-suite-health*
+
+Run :checkhealth straps_suite or require('straps_suite.health').check().
+Extension help documents their tool contracts and credential configuration.
+
+From the ecosystem root containing straps-suite/, run: >sh
+    nvim --headless -u NONE -l straps-suite/tests/run.lua
+    STRAPS_SUITE_ECO_ROOT=$PWD nvim --headless -u NONE -l straps-suite/tests/integration.lua
+    nix build --no-link --no-write-lock-file path:./straps-suite
+    nix flake check --no-write-lock-file path:./straps-suite
+<
+These commands describe verification and do not record outcomes.
+
+License: MIT, Copyright (c) 2026 Matt Ducharme. See LICENSE.
+
+vim:tw=78:ts=8:noet:ft=help:norl:
