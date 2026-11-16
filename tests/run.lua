@@ -12,7 +12,7 @@ local function rejects(fn, text)
 end
 local config = require('straps_suite.config')
 local cfg = config.resolve()
-check(cfg.core.max_spawn_depth == 2, 'spawn depth')
+check(cfg.core.max_spawn_depth == 4, 'spawn depth')
 check(cfg.core.context_management.enabled == true, 'context enabled')
 check(cfg.core.context_management.mode == 'mechanical', 'mechanical mode')
 check(cfg.core.context_management.trigger == 0.85, 'trigger')
@@ -68,7 +68,7 @@ suite.setup(opts)
 check(#calls == count, 'repeat setup does not call dependencies')
 local status = suite.status()
 status.configuration.core.max_spawn_depth = 99
-check(suite.status().configuration.core.max_spawn_depth == 2, 'status configuration isolated')
+check(suite.status().configuration.core.max_spawn_depth == 4, 'status configuration isolated')
 check(status.configured == true, 'completed state')
 suite = fresh()
 vim.g.loaded_straps_renamer = true

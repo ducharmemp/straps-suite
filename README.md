@@ -117,7 +117,7 @@ The suite's core defaults are:
 
 ```lua
 {
-  max_spawn_depth = 2,
+  max_spawn_depth = 4,
   compact_keep_turns = 2,
   context_management = {
     enabled = true,
