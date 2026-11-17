@@ -164,10 +164,15 @@ for _, severity in ipairs({ 'start', 'ok', 'warn', 'error', 'info' }) do
 end
 package.loaded['straps_classifier.health'] = { check = function() reports[#reports + 1] = 'classifier checked' end }
 require('straps_suite.health').check()
-check(table.concat(reports, '\n'):find('Unknown input allowance blocks dispatch', 1, true) ~= nil, 'health reports unknown budget')
+check(table.concat(reports, '\n'):find('New context management is disabled', 1, true) ~= nil, 'health reports default disabled')
 local original_status = suite.status
 suite.status = function() return { configured = true, configuration = config.resolve({ core = {
-  context_management = { mode = 'summary', context_limit = 10000 } } }) } end
+  context_management = { enabled = true } } }) } end
+reports = {}
+require('straps_suite.health').check()
+check(table.concat(reports, '\n'):find('Unknown input allowance blocks dispatch', 1, true) ~= nil, 'health reports unknown budget')
+suite.status = function() return { configured = true, configuration = config.resolve({ core = {
+  context_management = { enabled = true, mode = 'summary', context_limit = 10000 } } }) } end
 reports = {}
 require('straps_suite.health').check()
 check(table.concat(reports, '\n'):find('Summary mode makes provider requests', 1, true) ~= nil, 'health reports summary cost')
