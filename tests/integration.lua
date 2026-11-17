@@ -84,7 +84,8 @@ local function exercise()
       check(not suite.status().prepared, 'late preparation must leave suite unprepared')
       return
     end
-    local opts = mode == 'disabled' and { extensions = { chartifier = false, renamer = false } } or {}
+    local opts = mode == 'disabled' and { extensions = { chartifier = false, renamer = false } }
+      or { core = { context_management = { enabled = true } } }
     suite.prepare(opts)
     vim.cmd('runtime! plugin/**/*.lua')
     if mode == 'conflict' then
@@ -107,6 +108,7 @@ local function exercise()
         vim.api.nvim_get_autocmds({ event = 'User', pattern = 'StrapsRunStart' }))
       check(#automatic == 0, 'disabled renamer has no run-start autocmd')
       check(require('buff').state() == 'stopped', 'disabled mode does not start Buff')
+      check(require('straps').config.context_management.enabled == false, 'context management disabled by default')
       return
     end
     for _, marker in ipairs({ 'tool.fork', 'tool.collab_start', 'tool.show_chart', 'tool.buff_operate',

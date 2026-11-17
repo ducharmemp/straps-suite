@@ -23,7 +23,7 @@ function M.resolve(opts)
     'straps-suite: keymaps must be false or a nonempty prefix')
   local cfg = {
     core = { max_spawn_depth = 4, compact_keep_turns = 2,
-      context_management = { enabled = true, mode = 'mechanical', trigger = 0.85, target = 0.7, keep_turns = 2,
+      context_management = { enabled = false, mode = 'mechanical', trigger = 0.85, target = 0.7, keep_turns = 2,
         reserve_tokens = 4096, minimum_savings = 128, idle_compaction = false } },
     extensions = { divergent = {}, exoskeleton = {}, chartifier = {}, buff = {}, kagi = {},
       renamer = { auto = { enabled = false } },

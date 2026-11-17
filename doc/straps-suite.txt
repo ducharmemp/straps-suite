@@ -140,7 +140,7 @@ Core defaults: >lua
       max_spawn_depth = 4,
       compact_keep_turns = 2,
       context_management = {
-        enabled = true,
+        enabled = false,
         mode = 'mechanical',
         trigger = 0.85,
         target = 0.7,
@@ -193,10 +193,11 @@ It makes additional provider requests, incurs tokens, and refuses the Codex
 route. Structural checks do not establish fidelity. Read
 |straps-context-management| before enabling summary mode.
 
-Legacy auto_compact_tokens and auto_compact_bytes thresholds remain unset.
-Disable the new manager with: >lua
+The suite disables the context manager by default. Legacy auto_compact_tokens
+and auto_compact_bytes thresholds remain unset. Enable mechanical context
+management with: >lua
     local opts = {
-      core = { context_management = { enabled = false } },
+      core = { context_management = { enabled = true } },
     }
 <
 An optional explicit legacy threshold uses a reviewed model-specific budget: >lua

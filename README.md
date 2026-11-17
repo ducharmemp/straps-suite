@@ -120,7 +120,7 @@ The suite's core defaults are:
   max_spawn_depth = 4,
   compact_keep_turns = 2,
   context_management = {
-    enabled = true,
+    enabled = false,
     mode = 'mechanical',
     trigger = 0.85,
     target = 0.7,
@@ -160,11 +160,11 @@ Dispatch requires a known model input allowance. Unknown model limits block disp
 
 Summary mode is an explicit opt-in through `core.context_management.mode = 'summary'`. It makes additional provider requests and incurs tokens. It refuses the Codex route. Structural validation does not establish summary fidelity. Read `:help straps-context-management` before enabling it.
 
-The legacy `auto_compact_tokens` and `auto_compact_bytes` thresholds remain unset. Disable the new context manager with:
+The suite disables the context manager by default, and the legacy `auto_compact_tokens` and `auto_compact_bytes` thresholds remain unset. Enable mechanical context management with:
 
 ```lua
 local opts = {
-  core = { context_management = { enabled = false } },
+  core = { context_management = { enabled = true } },
 }
 ```
 
