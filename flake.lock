@@ -113,17 +113,17 @@
     "straps": {
       "flake": false,
       "locked": {
-        "lastModified": 1794772856,
-        "narHash": "sha256-oA9W7KdI8G/uSTO7fy4V/7zZ3dYBhlqKWmojjF4gx6o=",
+        "lastModified": 1794970574,
+        "narHash": "sha256-j6y8YjRAR4cri/VtY/kXExnnGyE029zDU2p6s5HsDVw=",
         "owner": "ducharmemp",
         "repo": "straps",
-        "rev": "78a487834c4ef24beb62e673cbe090200654308f",
+        "rev": "c16e7d31ddafac8446b339b35b50e2de1e5fdffb",
         "type": "github"
       },
       "original": {
         "owner": "ducharmemp",
         "repo": "straps",
-        "rev": "78a487834c4ef24beb62e673cbe090200654308f",
+        "rev": "c16e7d31ddafac8446b339b35b50e2de1e5fdffb",
         "type": "github"
       }
     },
@@ -164,16 +164,16 @@
     "straps-classifier": {
       "flake": false,
       "locked": {
-        "lastModified": 1794772892,
-        "narHash": "sha256-9C3POyFj1Mbm1PNMbozWfR/ONRmUs7a5+56ANzcB8Gc=",
+        "lastModified": 1794970498,
+        "narHash": "sha256-J7/FqIuwpV+XZg1W6Rx2r0+PoxgBivF274xLJ5dFT4I=",
         "ref": "refs/heads/main",
-        "rev": "b1af9df8bd058f8249230c725c97dbe0297a8c3d",
-        "revCount": 10,
+        "rev": "277043fe45ed5ea4e8790a7495b0476ccd42bbc6",
+        "revCount": 11,
         "type": "git",
         "url": "ssh://git@github.com/ducharmemp/straps-classifier"
       },
       "original": {
-        "rev": "b1af9df8bd058f8249230c725c97dbe0297a8c3d",
+        "rev": "277043fe45ed5ea4e8790a7495b0476ccd42bbc6",
         "type": "git",
         "url": "ssh://git@github.com/ducharmemp/straps-classifier"
       }
