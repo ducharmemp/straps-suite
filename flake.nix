@@ -9,7 +9,7 @@
     straps = { url = "github:ducharmemp/straps/c16e7d31ddafac8446b339b35b50e2de1e5fdffb"; flake = false; };
     straps-buff = { url = "github:ducharmemp/straps-buff/7351631448cbd547ae6a7e2cbb87240e901c8207"; flake = false; };
     straps-chartifier = { url = "github:ducharmemp/straps-chartifier/dc9d8f34ac504f9df7e712df298002970741db90"; flake = false; };
-    straps-classifier = { url = "git+ssh://git@github.com/ducharmemp/straps-classifier?rev=277043fe45ed5ea4e8790a7495b0476ccd42bbc6"; flake = false; };
+    straps-classifier = { url = "github:ducharmemp/straps-classifier/277043fe45ed5ea4e8790a7495b0476ccd42bbc6"; flake = false; };
     straps-divergent = { url = "github:ducharmemp/straps-divergent/5cce48ab7cb726f097d81112ecfbcc0cc5133162"; flake = false; };
     straps-exoskeleton = { url = "github:ducharmemp/straps-exoskeleton/734b67d3ac70757b34728558c0f5be065bce7db3"; flake = false; };
     straps-kagi = { url = "github:ducharmemp/straps-kagi/53c0ef4afcb93eb2dd1b64d92c29024f6bc333fa"; flake = false; };
@@ -90,9 +90,16 @@
         nvim --headless -u NONE -l ${script}
         touch "$out"
       '';
+      mkTrynix = pkgs: pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped {
+        plugins = [ (mkSuite pkgs) ];
+        waylandSupport = false;
+        luaRcContent = ''require("straps_suite").prepare({}) require("straps_suite").setup({})'';
+        wrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ pkgs.curl pkgs.ripgrep pkgs.gzip ]) ];
+      };
     in {
       packages = forAllSystems (pkgs: rec {
         straps-suite = mkSuite pkgs;
+        trynix = mkTrynix pkgs;
         default = straps-suite;
       });
       nixvimModules = { default = suiteModule; straps-suite = suiteModule; };

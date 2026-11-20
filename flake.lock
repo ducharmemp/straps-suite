@@ -166,16 +166,16 @@
       "locked": {
         "lastModified": 1794970498,
         "narHash": "sha256-J7/FqIuwpV+XZg1W6Rx2r0+PoxgBivF274xLJ5dFT4I=",
-        "ref": "refs/heads/main",
+        "owner": "ducharmemp",
+        "repo": "straps-classifier",
         "rev": "277043fe45ed5ea4e8790a7495b0476ccd42bbc6",
-        "revCount": 11,
-        "type": "git",
-        "url": "ssh://git@github.com/ducharmemp/straps-classifier"
+        "type": "github"
       },
       "original": {
+        "owner": "ducharmemp",
+        "repo": "straps-classifier",
         "rev": "277043fe45ed5ea4e8790a7495b0476ccd42bbc6",
-        "type": "git",
-        "url": "ssh://git@github.com/ducharmemp/straps-classifier"
+        "type": "github"
       }
     },
     "straps-divergent": {
