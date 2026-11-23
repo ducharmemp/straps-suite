@@ -113,17 +113,17 @@
     "straps": {
       "flake": false,
       "locked": {
-        "lastModified": 1794970574,
-        "narHash": "sha256-j6y8YjRAR4cri/VtY/kXExnnGyE029zDU2p6s5HsDVw=",
+        "lastModified": 1795405245,
+        "narHash": "sha256-+kyXOzD1kqABz2aM5XJHgVJEF+0g1lYSJQkPiUNKfwk=",
         "owner": "ducharmemp",
         "repo": "straps",
-        "rev": "c16e7d31ddafac8446b339b35b50e2de1e5fdffb",
+        "rev": "df8ea38b1308b607bd5000dd3659f54e73add9b7",
         "type": "github"
       },
       "original": {
         "owner": "ducharmemp",
         "repo": "straps",
-        "rev": "c16e7d31ddafac8446b339b35b50e2de1e5fdffb",
+        "rev": "df8ea38b1308b607bd5000dd3659f54e73add9b7",
         "type": "github"
       }
     },

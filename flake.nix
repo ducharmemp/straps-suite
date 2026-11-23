@@ -6,7 +6,7 @@
     nixvim.url = "github:nix-community/nixvim/453dc9c5037e6d1bec81d2a51ddacd58a2f44e9c";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     lazy = { url = "github:folke/lazy.nvim/306a05526ada86a7b30af95c5cc81ffba93fef97"; flake = false; };
-    straps = { url = "github:ducharmemp/straps/c16e7d31ddafac8446b339b35b50e2de1e5fdffb"; flake = false; };
+    straps = { url = "github:ducharmemp/straps/df8ea38b1308b607bd5000dd3659f54e73add9b7"; flake = false; };
     straps-buff = { url = "github:ducharmemp/straps-buff/7351631448cbd547ae6a7e2cbb87240e901c8207"; flake = false; };
     straps-chartifier = { url = "github:ducharmemp/straps-chartifier/dc9d8f34ac504f9df7e712df298002970741db90"; flake = false; };
     straps-classifier = { url = "github:ducharmemp/straps-classifier/277043fe45ed5ea4e8790a7495b0476ccd42bbc6"; flake = false; };
